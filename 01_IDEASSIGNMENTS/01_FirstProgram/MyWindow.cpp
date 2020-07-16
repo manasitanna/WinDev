@@ -100,7 +100,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 		11. lpParam (extra information)
 	*/
 	/*
-		void CreatWindow(LPCTR,
+		HWND CreatWindow(LPCTR,
 		LPCTR,
 		DWORD,
 		int,
