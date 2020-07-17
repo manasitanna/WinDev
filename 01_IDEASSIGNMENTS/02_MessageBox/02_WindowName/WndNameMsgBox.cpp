@@ -3,7 +3,7 @@
 
 // GLOBAL DECLARATION OF WndProc
 
-LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
 
 // Main
 
@@ -45,7 +45,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	RegisterClassEx(&wndclass);
 	/*
-		ATOM  RegisterClassEx (const WNDCLASSEX *);
+		ATOM WINAPI RegisterClassEx (const WNDCLASSEX *);
 	*/
 
 	hwnd = CreateWindow(szAppName,
@@ -60,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 		hInstance,
 		NULL);
 	/*
-		`HWND WINAPI CreateWindow(LPCSTR,
+		HWND WINAPI CreateWindow(LPCSTR,
 		LPCSTR,
 		DWOED,
 		int.
@@ -87,11 +87,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 		TranslateMessage(&msg);
 		/*
-			BOOL TranslateMessage(const MSG *);
+			BOOL WINAPI TranslateMessage(const MSG *);
 		*/
 		DispatchMessage(&msg);
 		/*
-			LRESULT DispatchMessage(const MSG *);
+			LRESULT WINAPI DispatchMessage(const MSG *);
 		*/
 	}
 
@@ -106,13 +106,26 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 
 	case WM_CREATE:
 		wsprintf(str, TEXT("The window name is: %s"), ((LPCREATESTRUCT)lParam)->lpszName);
+		/*
+			int WINAPIV wsprintf(LPCSTR, LPCSTR, ...)
+			WINAPIV -> __cdecl -> right to left declaration.
+		*/
 		MessageBox(hwnd, str, TEXT("window message"), MB_OK);
+		/*
+			int WINAPI MessageBox(HWND, LPCSTR, LPCSTR, UINT); 
+		*/
 		break;
 
 	case WM_DESTROY:
 		PostQuitMessage(0);
+		/*
+			void __stdcall PostQuitMessage(int ExitCode);
+		*/
 		break;
 	}
 
 	return(DefWindowProc(hwnd, iMsg, wParam, lParam));
+	/*
+		LRESULT WINAPI DefWindowProc(HWND, UINT, WPARAM,LPARAM);
+	*/
 }
