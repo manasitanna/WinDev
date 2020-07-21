@@ -111,7 +111,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 	HDC hdc;
 	PAINTSTRUCT ps;
 	RECT rc;
-	int iPaintFlag = 0;
+	static int iPaintFlag = 0;
 	TCHAR strng[] = TEXT(" HELLO WORLD !!!");
 
 
@@ -158,6 +158,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 			InvalidateRect(hwnd, NULL, TRUE);
 			break;
 		}
+		break;
 
 	case WM_PAINT:
 		GetClientRect(hwnd, &rc);
